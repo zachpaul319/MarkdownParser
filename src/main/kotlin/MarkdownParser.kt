@@ -12,9 +12,6 @@ class MarkdownParser: CodeParser {
 
     val REGEX_MAP = LinkedHashMap<String, Regex>() // Using LinkedHashMap, as order of insertion will matter for iteration
 
-    // Make REGEX_MAP iterable
-    val REGEX_MAP_ITERATOR = REGEX_MAP.iterator()
-
     constructor() {
         // Bold must come before italic for iteration and regex matching purposes
         REGEX_MAP.put("Heading", HEADING)
@@ -31,10 +28,13 @@ class MarkdownParser: CodeParser {
 
         // Iterate through each line of the file
         for (line in lines) {
+            // Make REGEX_MAP iterable
+            val regexMapIterator = REGEX_MAP.iterator()
+
             var result: MatchResult? = null
             // Iterate through REGEX_MAP until a match is found or there are no more map entries left to check
-            while (result == null && REGEX_MAP_ITERATOR.hasNext()) {
-                val regex = REGEX_MAP_ITERATOR.next()
+            while (result == null && regexMapIterator.hasNext()) {
+                val regex = regexMapIterator.next()
 
                 result = regex.value.matchEntire(line)
                 result?.let {

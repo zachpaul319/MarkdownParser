@@ -12,6 +12,7 @@ fun main(args: Array<String>) {
             val lines = markdownParser.parseCode(it)
 
             val htmlFile = markdownParser.writeFile(it, lines)
+
             println("HTML file created. Please see '$htmlFile'")
 
         } catch (e: FileNotFoundException) {
